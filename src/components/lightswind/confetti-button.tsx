@@ -88,7 +88,6 @@ const ConfettiButton = React.forwardRef<HTMLButtonElement, ConfettiButtonProps>(
       variant,
       size,
       animation,
-      asChild = false,
       children,
       icon,
       iconPosition = "left",

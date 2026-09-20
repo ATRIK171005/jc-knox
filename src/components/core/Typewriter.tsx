@@ -14,10 +14,9 @@ export default function Typewriter({ text, speed = 60, delay = 0, className = ""
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    setDisplayText("");
-    setIsComplete(false);
-
     const timer = setTimeout(() => {
+      setDisplayText("");
+      setIsComplete(false);
       let currentIndex = 0;
       const interval = setInterval(() => {
         if (currentIndex < text.length) {

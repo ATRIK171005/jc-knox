@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Check, CheckCircle2 } from 'lucide-react';
 
 export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success'>('idle');
@@ -13,6 +14,12 @@ export default function ContactForm() {
     setStatus('success');
   };
 
+  const features = [
+    "Fixed-price quotes",
+    "Strict deadlines",
+    "No agency fluff"
+  ];
+
   return (
     <section id="contact" className="py-20 px-6 bg-surface/30 border-t border-border">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -21,22 +28,18 @@ export default function ContactForm() {
             Ready to build <br /> something real?
           </h2>
           <p className="text-lg text-secondary mb-8 leading-relaxed">
-            Tell us about your project. We'll review your requirements
+            Tell us about your project. We&apos;ll review your requirements
             and get back to you within 24 hours with a clear plan and quote.
           </p>
           <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-3 text-secondary">
-              <span className="w-5 h-5 rounded-full bg-accent/20 text-accent flex items-center justify-center text-xs font-bold">✓</span>
-              Fixed-price quotes
-            </div>
-            <div className="flex items-center gap-3 text-secondary">
-              <span className="w-5 h-5 rounded-full bg-accent/20 text-accent flex items-center justify-center text-xs font-bold">✓</span>
-              Strict deadlines
-            </div>
-            <div className="flex items-center gap-3 text-secondary">
-              <span className="w-5 h-5 rounded-full bg-accent/20 text-accent flex items-center justify-center text-xs font-bold">✓</span>
-              No agency fluff
-            </div>
+            {features.map((feature, index) => (
+              <div key={index} className="flex items-center gap-3 text-secondary">
+                <span className="w-6 h-6 rounded-full bg-accent/20 text-accent flex items-center justify-center">
+                  <Check className="w-3.5 h-3.5 font-bold" />
+                </span>
+                {feature}
+              </div>
+            ))}
           </div>
         </div>
 
@@ -45,14 +48,16 @@ export default function ContactForm() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="p-12 rounded-2xl bg-surface border border-border text-center"
+              className="p-12 rounded-2xl bg-surface border border-border text-center flex flex-col items-center justify-center"
             >
-              <div className="text-5xl mb-4">✉️</div>
+              <div className="mb-6 text-green-500">
+                <CheckCircle2 className="w-16 h-16" />
+              </div>
               <h3 className="text-2xl font-bold text-primary mb-2">Message Sent</h3>
-              <p className="text-secondary">We'll be in touch shortly.</p>
+              <p className="text-secondary">We&apos;ll be in touch shortly.</p>
               <button
                 onClick={() => setStatus('idle')}
-                className="mt-6 text-accent hover:underline text-sm"
+                className="mt-8 text-accent hover:underline text-sm font-medium"
               >
                 Send another message
               </button>
@@ -61,8 +66,9 @@ export default function ContactForm() {
             <form onSubmit={handleSubmit} className="p-8 rounded-2xl bg-surface border border-border space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-medium text-secondary uppercase tracking-wider">Name</label>
+                  <label htmlFor="name" className="text-xs font-medium text-secondary uppercase tracking-wider">Name</label>
                   <input
+                    id="name"
                     required
                     type="text"
                     placeholder="John Doe"
@@ -70,8 +76,9 @@ export default function ContactForm() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-medium text-secondary uppercase tracking-wider">Email</label>
+                  <label htmlFor="email" className="text-xs font-medium text-secondary uppercase tracking-wider">Email</label>
                   <input
+                    id="email"
                     required
                     type="email"
                     placeholder="john@example.com"
@@ -80,8 +87,9 @@ export default function ContactForm() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-medium text-secondary uppercase tracking-wider">Project Description</label>
+                <label htmlFor="description" className="text-xs font-medium text-secondary uppercase tracking-wider">Project Description</label>
                 <textarea
+                  id="description"
                   required
                   rows={4}
                   placeholder="Tell us about your vision..."
@@ -90,7 +98,7 @@ export default function ContactForm() {
               </div>
               <button
                 disabled={status === 'sending'}
-                className="btn-primary w-full py-4 text-lg font-bold flex items-center justify-center gap-2"
+                className="btn-primary w-full py-4 text-lg font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status === 'sending' ? 'Sending...' : 'Send Request'}
               </button>

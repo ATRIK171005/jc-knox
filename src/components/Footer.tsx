@@ -43,7 +43,7 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-xs text-secondary">
-          © {new Date().getFullYear()} JC KNOX. All rights reserved.
+          &copy; {new Date().getFullYear()} JC KNOX. All rights reserved.
         </p>
         <p className="text-xs font-mono text-secondary/50">
           Built by JC KNOX

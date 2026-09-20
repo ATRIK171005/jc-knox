@@ -16,7 +16,7 @@ export const TextRevealCard = ({
   className?: string;
 }) => {
   const [widthPercentage, setWidthPercentage] = useState(0);
-  const cardRef = useRef<HTMLDivElement | any>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const [left, setLeft] = useState(0);
   const [localWidth, setLocalWidth] = useState(0);
   const [isMouseOver, setIsMouseOver] = useState(false);
@@ -30,7 +30,7 @@ export const TextRevealCard = ({
     }
   }, []);
 
-  function mouseMoveHandler(event: any) {
+  function mouseMoveHandler(event: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent) {
     event.preventDefault();
 
     const { clientX } = event;
@@ -148,22 +148,28 @@ export const TextRevealCardDescription = ({
 };
 
 const Stars = () => {
-  const randomMove = () => Math.random() * 4 - 2;
-  const randomOpacity = () => Math.random();
-  const random = () => Math.random();
+  const stars = React.useMemo(() => {
+    return [...Array(80)].map(() => ({
+      top: `calc(${Math.random() * 100}% + ${Math.random() * 4 - 2}px)`,
+      left: `calc(${Math.random() * 100}% + ${Math.random() * 4 - 2}px)`,
+      opacity: Math.random(),
+      duration: Math.random() * 10 + 20,
+    }));
+  }, []);
+
   return (
     <div className="absolute inset-0">
-      {[...Array(80)].map((_, i) => (
+      {stars.map((star, i) => (
         <motion.span
           key={`star-${i}`}
           animate={{
-            top: `calc(${random() * 100}% + ${randomMove()}px)`,
-            left: `calc(${random() * 100}% + ${randomMove()}px)`,
-            opacity: randomOpacity(),
+            top: star.top,
+            left: star.left,
+            opacity: star.opacity,
             scale: [1, 1.2, 0],
           }}
           transition={{
-            duration: random() * 10 + 20,
+            duration: star.duration,
             repeat: Infinity,
             ease: "linear",
           }}
