@@ -30,10 +30,10 @@ export const TextRevealCard = ({
     }
   }, []);
 
-  function mouseMoveHandler(event: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent) {
+  function mouseMoveHandler(event: React.MouseEvent<HTMLDivElement>) {
     event.preventDefault();
 
-    const { clientX } = event;
+    const clientX = event.clientX;
     if (cardRef.current) {
       const relativeX = clientX - left;
       setWidthPercentage((relativeX / localWidth) * 100);
@@ -175,8 +175,8 @@ const Stars = () => {
           }}
           style={{
             position: "absolute",
-            top: `${random() * 100}%`,
-            left: `${random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
             width: `2px`,
             height: `2px`,
             backgroundColor: "white",
