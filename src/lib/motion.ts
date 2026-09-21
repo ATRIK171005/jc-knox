@@ -23,7 +23,7 @@ export const EASE_BACK = [0.68, -0.55, 0.265, 1.55] as const;
 /** Durations, in seconds, matching the measured transitions. */
 export const DUR = {
   track: 0.6,
-  text: 1.2,
+  text: 0.7,
   menu: 0.4,
 } as const;
 

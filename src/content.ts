@@ -8,9 +8,9 @@ export const site = {
   name: "JC KNOX.",
   nameShort: "JC KNOX",
   tagline: "We build websites for brands and businesses",
-  email: "hello@jcknox.com",
-  phone: "+91 00000 00000",
-  location: "Vellore / Hyderabad, IN",
+  email: "jcknox.in@gmail.com",
+  phone: "+91 81162 23001",
+  contactName: "Aastik Kumar Saha",
   socials: [
     { label: "Instagram", href: "https://instagram.com/" },
     { label: "LinkedIn", href: "https://linkedin.com/" },
@@ -22,6 +22,7 @@ export const nav = [
   { label: "Studio", href: "#studio" },
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
+  { label: "Contact Us", href: "#contact" },
 ];
 
 export const hero = {
@@ -100,7 +101,7 @@ export const process = [
   {
     step: "01",
     title: "Signal",
-    body: "A 45-minute call. You describe the business, we tell you honestly whether we're the right studio to build it.",
+    body: "A call. You describe the business, we tell you honestly whether we're the right studio to build it.",
   },
   {
     step: "02",

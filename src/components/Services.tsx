@@ -16,7 +16,7 @@ export default function Services() {
           {services.map((service, i) => (
             <div key={service.title}>
               <Rise delay={i * 0.05}>
-                <div className="group grid grid-cols-1 gap-[19px] py-[46px] md:grid-cols-12">
+                <div className="group grid grid-cols-1 gap-[19px] py-[60px] md:grid-cols-12">
                   <div className="md:col-span-1">
                     <span className="label opacity-60">{service.index}</span>
                   </div>

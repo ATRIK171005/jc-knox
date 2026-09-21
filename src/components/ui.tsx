@@ -52,7 +52,7 @@ export function SplitText({
   lines,
   className = "",
   delay = 0,
-  stagger = 0.045,
+  stagger = 0.02,
   trigger = "scroll",
 }: {
   lines: string[];

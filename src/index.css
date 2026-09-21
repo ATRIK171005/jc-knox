@@ -281,7 +281,7 @@ html {
 
 /* Fluid display type: never overflows a phone, never shrinks on desktop. */
 .display {
-  font-size: clamp(44px, 10.5vw, var(--text-display));
+  font-size: clamp(32px, 7vw, var(--text-display));
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
   text-transform: uppercase;
@@ -301,24 +301,26 @@ html {
 .field {
   width: 100%;
   background: transparent;
-  border: 1px solid var(--color-ash);
+  border: 1px solid var(--color-ink);
   border-radius: var(--radius-inputs);
   padding: 12px var(--spacing-15);
   font-family: inherit;
   font-size: var(--text-body-sm);
   line-height: var(--leading-body-sm);
   color: var(--color-ink);
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 .field::placeholder {
-  color: var(--color-ash);
+  color: color-mix(in srgb, var(--color-ink) 50%, transparent);
 }
 .field:focus {
   outline: none;
+  background: transparent;
   border-color: var(--color-ink);
+  box-shadow: 0 0 0 1px var(--color-ink);
 }
 
-@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+@media (hover: hover) and (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
   /* Custom cursor is active — hide the native one. */
   html,
   html a,

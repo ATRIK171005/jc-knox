@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { nav, site } from "../content";
 import { EASE } from "../lib/motion";
 import JCLogo from "./JCLogo";
@@ -68,10 +68,10 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-6">
           <button 
             onClick={() => setIsDark(!isDark)}
-            className="text-ink hover:opacity-70 transition-opacity"
+            className="text-ink hover:opacity-70 transition-opacity active:scale-95 h-10 w-10 flex items-center justify-center"
             aria-label="Toggle dark mode"
           >
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            <ThemeToggleIcon isDark={isDark} />
           </button>
           <a href="#contact" className="pill">
             <span>Let&apos;s talk</span>
@@ -82,10 +82,10 @@ export default function Navbar() {
         <div className="flex md:hidden items-center gap-4">
           <button 
             onClick={() => setIsDark(!isDark)}
-            className="text-ink hover:opacity-70 transition-opacity"
+            className="text-ink hover:opacity-70 transition-opacity active:scale-95 h-10 w-10 flex items-center justify-center"
             aria-label="Toggle dark mode"
           >
-            {isDark ? <Sun size={24} /> : <Moon size={24} />}
+            <ThemeToggleIcon isDark={isDark} />
           </button>
           <button
             type="button"
@@ -94,7 +94,7 @@ export default function Navbar() {
             onClick={() => setOpen((v) => !v)}
             className="text-ink"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
@@ -127,5 +127,31 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </motion.header>
+  );
+}
+
+function ThemeToggleIcon({ isDark }: { isDark: boolean }) {
+  return (
+    <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <motion.g
+        animate={{ rotate: isDark ? -180 : 0 }}
+        transition={{ ease: "easeInOut", duration: 0.35 }}
+      >
+        <path
+          d="M120 67.5C149.25 67.5 172.5 90.75 172.5 120C172.5 149.25 149.25 172.5 120 172.5"
+          fill="currentColor"
+        />
+        <path
+          d="M120 67.5C90.75 67.5 67.5 90.75 67.5 120C67.5 149.25 90.75 172.5 120 172.5"
+          fill="var(--color-parchment)"
+        />
+      </motion.g>
+      <motion.path
+        animate={{ rotate: isDark ? 180 : 0 }}
+        transition={{ ease: "easeInOut", duration: 0.35 }}
+        d="M120 3.75C55.5 3.75 3.75 55.5 3.75 120C3.75 184.5 55.5 236.25 120 236.25C184.5 236.25 236.25 184.5 236.25 120C236.25 55.5 184.5 3.75 120 3.75ZM120 214.5V172.5C90.75 172.5 67.5 149.25 67.5 120C67.5 90.75 90.75 67.5 120 67.5V25.5C172.5 25.5 214.5 67.5 214.5 120C214.5 172.5 172.5 214.5 120 214.5Z"
+        fill="currentColor"
+      />
+    </svg>
   );
 }

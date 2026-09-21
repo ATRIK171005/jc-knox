@@ -75,7 +75,7 @@ export default function Contact() {
                   <span className="line">{site.email}</span>
                 </a>
                 <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="ghost-link">
-                  <span className="line">{site.phone}</span>
+                  <span className="line">{site.phone} &mdash; {site.contactName}</span>
                 </a>
               </div>
             </Rise>

@@ -28,26 +28,32 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative z-10 flex min-h-[100svh] items-center pb-[119px] pt-[160px]"
+      className="relative z-10 flex min-h-[100svh] items-center pb-[200px] md:pb-[250px] pt-[120px]"
     >
       {/* Concentric ornaments live in <SphereLayer> with the orb, matching
           the reference site where the rings belong to .orb-w, not the hero. */}
 
       <motion.div style={{ y: textY }} className="shell relative z-10">
-        <h1 className="display text-ink flex flex-col items-start">
-          <SplitText lines={[hero.lines[0]]} delay={0.15} trigger="load" />
-          <AnnotatedText variant="underline" delay={0.8} color="text-purple-500">
-            <SplitText lines={[hero.lines[1]]} delay={0.15} trigger="load" />
-          </AnnotatedText>
-          <SplitText lines={[hero.lines[2]]} delay={0.15} trigger="load" />
-          <AnnotatedText variant="wavy" delay={1} color="text-cyan-500">
-            <SplitText lines={[hero.lines[3]]} delay={0.15} trigger="load" />
-          </AnnotatedText>
+        <h1 className="display text-ink flex flex-col w-full gap-6 md:gap-10 lg:gap-16">
+          <div className="self-start pl-4 md:pl-16 lg:pl-32">
+            <SplitText lines={[hero.lines[0]]} delay={3.4} trigger="load" />
+          </div>
+          <div className="self-start pl-[15%] md:pl-[30%] lg:pl-[40%] mt-[-10px] md:mt-[-20px]">
+            <SplitText lines={[hero.lines[1]]} delay={3.55} trigger="load" />
+          </div>
+          <div className="self-start pl-8 md:pl-[20%] lg:pl-[35%]">
+            <SplitText lines={[hero.lines[2]]} delay={3.7} trigger="load" />
+          </div>
+          <div className="self-end pr-8 md:pr-12 lg:pr-24">
+            <AnnotatedText variant="wavy" delay={4.2} color="text-cyan-500">
+              <SplitText lines={[hero.lines[3]]} delay={3.85} trigger="load" />
+            </AnnotatedText>
+          </div>
         </h1>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: EASE, delay: 0.6 }}
+          transition={{ duration: 0.9, ease: EASE, delay: 4.3 }}
           className="mt-[46px] flex flex-wrap items-center gap-x-[32px] gap-y-[15px]"
         >
           <a href={hero.cta.href} className="pill">

@@ -22,7 +22,6 @@ export default function Footer() {
             <a href={`mailto:${site.email}`} className="ghost-link">
               <span className="line">{site.email}</span>
             </a>
-            <p className="label m-0 opacity-65">{site.location}</p>
           </div>
 
           <nav className="flex flex-wrap gap-[19px]">

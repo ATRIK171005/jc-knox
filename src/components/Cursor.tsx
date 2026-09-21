@@ -16,7 +16,7 @@ export default function Cursor() {
   const [enabled] = useState(
     () =>
       typeof window !== "undefined" &&
-      window.matchMedia("(pointer: fine)").matches &&
+      window.matchMedia("(hover: hover) and (any-pointer: fine)").matches &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
   const [visible, setVisible] = useState(false);
