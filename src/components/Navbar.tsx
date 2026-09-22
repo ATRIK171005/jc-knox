@@ -36,11 +36,15 @@ export default function Navbar() {
     >
       <div className="shell flex items-center justify-between">
         <a href="#top" className="flex items-center relative w-12 h-12 md:w-16 md:h-16">
-          {/* mix-blend-mode:multiply makes the white background invisible on light surfaces */}
-          <img
-            src="/logos/jck-logo.png"
-            alt="JC Knox"
-            className="w-full h-full object-contain mix-blend-multiply dark:invert dark:mix-blend-normal"
+          <img 
+            src="/logos/logo-dark-ink-v2.png" 
+            alt="Brand Logo" 
+            className="w-full h-full object-contain dark:hidden"
+          />
+          <img 
+            src="/logos/logo-beige-v2.png" 
+            alt="Brand Logo" 
+            className="hidden w-full h-full object-contain dark:block"
           />
         </a>
 
