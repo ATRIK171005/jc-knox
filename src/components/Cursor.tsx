@@ -85,16 +85,17 @@ export default function Cursor() {
   if (!enabled) return null;
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9999] mix-blend-difference">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9999]">
       <div
         ref={ring}
-        className="pointer-events-none fixed left-0 top-0 rounded-full bg-white"
+        className="pointer-events-none fixed left-0 top-0 rounded-full border border-ink dark:border-parchment"
         style={{
           width: 34,
           height: 34,
           opacity: visible ? 1 : 0,
           transition: "opacity 0.2s ease",
           transformOrigin: "center center",
+          backgroundColor: "transparent",
         }}
       />
     </div>
