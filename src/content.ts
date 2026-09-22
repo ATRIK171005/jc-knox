@@ -11,7 +11,7 @@ export const site = {
   email: "jcknox.in@gmail.com",
   phone: "+91 81162 23001",
   contactName: "Aastik Kumar Saha",
-  socials: [],
+  socials: [] as { label: string; href: string }[],
 };
 
 export const nav = [
@@ -145,4 +145,4 @@ export const contact = {
   ],
 };
 
-export const footerLinks = [];
+export const footerLinks: { label: string; href: string }[] = [];

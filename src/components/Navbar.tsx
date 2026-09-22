@@ -62,7 +62,7 @@ export default function Navbar() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="text-ink"
+            className="text-ink p-2 -mr-2 touch-manipulation"
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -76,7 +76,7 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4, ease: EASE }}
-            className="overflow-hidden border-t border-ash  md:hidden"
+            className="overflow-hidden border-t border-ash md:hidden bg-parchment dark:bg-ink"
           >
             <div className="shell flex flex-col gap-[19px] py-[30px]">
               {[...nav, { label: "Contact", href: "#contact" }].map((item) => (
@@ -84,12 +84,12 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="text-subheading leading-subheading tracking-subheading uppercase text-ink"
+                  className="text-subheading leading-subheading tracking-subheading uppercase text-ink touch-manipulation"
                 >
                   {item.label}
                 </a>
               ))}
-              <a href={`mailto:${site.email}`} className="label mt-[19px] opacity-70">
+              <a href={`mailto:${site.email}`} className="label mt-[19px] opacity-70 touch-manipulation">
                 {site.email}
               </a>
             </div>

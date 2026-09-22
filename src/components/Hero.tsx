@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { hero, site } from "../content";
 import { EASE } from "../lib/motion";
-import { SplitText, PulseLine } from "./ui";
+import { SplitText } from "./ui";
 import { AnnotatedText } from "./AnnotatedText";
 
 /**
@@ -16,14 +15,6 @@ import { AnnotatedText } from "./AnnotatedText";
 export default function Hero() {
   const { scrollY } = useScroll();
   const textY = useTransform(scrollY, [0, 900], [0, 60]);
-  const fade = useTransform(scrollY, [0, 500], [1, 0]);
-
-  const [hideScroll, setHideScroll] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setHideScroll(window.scrollY > 80);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <section
