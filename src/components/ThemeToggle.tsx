@@ -34,7 +34,7 @@ export default function ThemeToggle() {
 
 function ThemeToggleIcon({ isDark }: { isDark: boolean }) {
   return (
-    <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 md:w-10 md:h-10">
+    <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 md:w-12 md:h-12">
       <motion.g
         animate={{ rotate: isDark ? -180 : 0 }}
         transition={{ ease: "easeInOut", duration: 0.35 }}

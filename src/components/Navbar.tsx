@@ -62,9 +62,9 @@ export default function Navbar() {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="text-ink p-2 -mr-2 touch-manipulation"
+            className="text-ink p-3 -mr-3 touch-manipulation"
           >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {open ? <X size={36} strokeWidth={1.5} /> : <Menu size={36} strokeWidth={1.5} />}
           </button>
         </div>
       </div>
@@ -76,20 +76,40 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.4, ease: EASE }}
-            className="overflow-hidden border-t border-ash md:hidden bg-parchment dark:bg-ink"
+            className="overflow-hidden border-t border-ash md:hidden"
+            style={{ backgroundColor: "var(--color-parchment)" }}
           >
-            <div className="shell flex flex-col gap-[19px] py-[30px]">
+            <div className="shell flex flex-col gap-[14px] py-[20px]">
               {[...nav, { label: "Contact", href: "#contact" }].map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="text-subheading leading-subheading tracking-subheading uppercase text-ink touch-manipulation"
+                  className="uppercase touch-manipulation"
+                  style={{
+                    fontSize: "18px",
+                    color: "var(--color-ink)",
+                    letterSpacing: "0.05em",
+                    lineHeight: 1.4,
+                    textDecoration: "none",
+                  }}
                 >
                   {item.label}
                 </a>
               ))}
-              <a href={`mailto:${site.email}`} className="label mt-[19px] opacity-70 touch-manipulation">
+              <a
+                href={`mailto:${site.email}`}
+                className="touch-manipulation"
+                style={{
+                  fontSize: "11px",
+                  color: "var(--color-ink)",
+                  opacity: 0.7,
+                  marginTop: "4px",
+                  textDecoration: "none",
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                }}
+              >
                 {site.email}
               </a>
             </div>
