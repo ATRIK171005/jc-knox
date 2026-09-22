@@ -3,7 +3,6 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import SphereLayer from "./components/SphereLayer";
 import About from "./components/About";
-import Work from "./components/Work";
 import Services from "./components/Services";
 import Process from "./components/Process";
 import Contact from "./components/Contact";
@@ -11,6 +10,7 @@ import Footer from "./components/Footer";
 import Cursor from "./components/Cursor";
 import NavigationIndicator from "./components/NavigationIndicator";
 import Intro from "./components/Intro";
+import ThemeToggle from "./components/ThemeToggle";
 import { useSmoothScroll } from "./lib/useSmoothScroll";
 
 const SECTIONS = [
@@ -62,11 +62,12 @@ function App() {
 
   return (
     <div className="min-h-screen bg-parchment text-ink relative">
-      <Intro />
+      <Intro requireClick={false} />
       <Cursor />
       {/* Fixed layer behind everything — the sphere travels the whole page. */}
       <SphereLayer />
       <Navbar />
+      <ThemeToggle />
       
       {/* Navigation Indicator on the right */}
       <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 mix-blend-difference hidden md:block">
@@ -80,7 +81,6 @@ function App() {
       <main>
         <Hero />
         <About />
-        <Work />
         <Services />
         <Process />
         <Contact />

@@ -248,12 +248,13 @@ async function dismissIntro(page) {
   check('section reveals on scroll', after === '1', String(after));
 
   // ANIMATION: hairline rules draw themselves (scaleX 0 -> 1).
-  await fresh.locator('#services').scrollIntoViewIfNeeded();
+  // Scroll the RULE into view, not just its section: #services is tall, so
+  // bringing the section into view can leave its hairlines below the fold,
+  // where scaleX(0) is the correct un-animated state rather than a bug.
+  const rule = fresh.locator('#services .origin-left').first();
+  await rule.scrollIntoViewIfNeeded();
   await fresh.waitForTimeout(1800);
-  const ruleDrawn = await fresh.evaluate(() => {
-    const el = document.querySelector('#services .origin-left');
-    return el ? getComputedStyle(el).transform : null;
-  });
+  const ruleDrawn = await rule.evaluate((el) => getComputedStyle(el).transform);
   check(
     'hairline rule drew itself',
     ruleDrawn === 'none' || /matrix\(1,/.test(ruleDrawn || ''),

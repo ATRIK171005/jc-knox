@@ -44,13 +44,19 @@ export default function Intro({
   // Lazily initialised in the effect: calling Date.now() during render is
   // impure and can drift across re-renders.
   const startedAt = useRef(0);
+  // Set when a click arrives before the counter has finished.
+  const wantsIn = useRef(false);
 
-  // Skip the whole thing for reduced-motion users and repeat visits in the
-  // same tab — an intro you can't dismiss is a hostile intro.
-  const skip = useRef(
+  // Only a repeat visit in the same tab skips the intro outright.
+  // Reduced-motion users still SEE it — they just get it without the
+  // sliding/wiping flourishes (see `calm` below). Hiding it entirely meant
+  // anyone with "reduce motion" on in their OS never saw the entry page.
+  const skip = useRef(false); // Temporarily set to false so you can see it on every refresh
+
+  // Respect the motion preference for HOW it animates, not WHETHER it shows.
+  const calm = useRef(
     typeof window !== "undefined" &&
-      (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-        sessionStorage.getItem("jck-intro-seen") === "1"),
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
 
   useEffect(() => {
@@ -112,9 +118,39 @@ export default function Intro({
   }, [pct, requireClick]);
 
   const enter = () => {
-    if (!ready || leaving) return;
+    if (leaving) return;
+    // If the visitor clicks before the counter finishes, remember it and
+    // leave as soon as it does — dropping the click made dismissal depend
+    // on split-second timing.
+    if (!ready) {
+      wantsIn.current = true;
+      return;
+    }
     setLeaving(true);
   };
+
+  // Honour a click that arrived before the gate armed.
+  useEffect(() => {
+    if (ready && wantsIn.current && !leaving) setLeaving(true);
+  }, [ready, leaving]);
+
+  // Keyboard parity + a hard ceiling. An entry overlay that can't be
+  // dismissed is a broken site, so it always leaves within 12s regardless
+  // of what the loader reports.
+  useEffect(() => {
+    if (skip.current) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " " || e.key === "Escape") enter();
+    };
+    window.addEventListener("keydown", onKey);
+    const bail = setTimeout(() => setLeaving(true), 12000);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      clearTimeout(bail);
+    };
+    // `enter` is stable enough here: it only reads refs and state setters.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!leaving) return;
@@ -139,35 +175,65 @@ export default function Intro({
           aria-label="Loading"
           onClick={enter}
           // The source exits with a clip-path wipe upward, not a fade.
+          // Reduced motion gets a plain opacity fade instead of the wipe.
           initial={{ clipPath: "inset(0% 0% 0% 0%)" }}
           animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
-          exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
-          transition={{ duration: 1, ease: EASE }}
-          style={{ clipPath: leaving ? "inset(0% 0% 100% 0%)" : "inset(0% 0% 0% 0%)" }}
-          className={`fixed inset-0 z-[9999] flex flex-col justify-between bg-parchment px-[30px] py-[30px] transition-[clip-path] duration-[1000ms] md:px-[46px] ${
-            ready && requireClick ? "cursor-pointer" : ""
-          }`}
+          exit={
+            calm.current
+              ? { opacity: 0 }
+              : { clipPath: "inset(0% 0% 100% 0%)" }
+          }
+          transition={{ duration: calm.current ? 0.35 : 1, ease: EASE }}
+          style={
+            calm.current
+              ? { opacity: leaving ? 0 : 1, transition: "opacity 350ms linear" }
+              : {
+                  clipPath: leaving
+                    ? "inset(0% 0% 100% 0%)"
+                    : "inset(0% 0% 0% 0%)",
+                }
+          }
+          className={`fixed inset-0 z-[9999] flex flex-col justify-between bg-parchment px-[30px] py-[30px] md:px-[46px] ${
+            calm.current ? "" : "transition-[clip-path] duration-[1000ms]"
+          } ${ready && requireClick ? "cursor-pointer" : ""}`}
         >
-          {/* Top rail: wordmark + state, like the source's MENU/SOUND rails. */}
-          <div className="flex items-start justify-between">
-            <span className="label !text-[13px] font-bold !tracking-[0.06em] text-ink">
+          {/* Top rail: wordmark + state */}
+          <div className="relative z-10 flex items-start justify-between">
+            <span className="label !text-[13px] font-bold !tracking-[0.06em] text-ink flex items-center gap-3">
+              <img 
+                src="/logos/logo-dark-ink-v2.png" 
+                alt="Brand Logo" 
+                className="w-6 h-6 object-contain dark:hidden"
+              />
+              <img 
+                src="/logos/logo-beige-v2.png" 
+                alt="Brand Logo" 
+                className="hidden w-6 h-6 object-contain dark:block"
+              />
               {site.name}
             </span>
-            <span className="label text-ink opacity-60">
+            <span className="label text-ink opacity-60 flex items-center gap-2">
               {ready ? "READY" : "LOADING"}
+              {!ready && (
+                <span className="flex gap-1">
+                  <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0 }} className="h-1 w-1 rounded-full bg-ink opacity-60" />
+                  <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }} className="h-1 w-1 rounded-full bg-ink opacity-60" />
+                  <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }} className="h-1 w-1 rounded-full bg-ink opacity-60" />
+                </span>
+              )}
             </span>
           </div>
 
           {/* Centre: the rotating status line. */}
-          <div className="flex flex-1 items-center justify-center">
+          <div className="relative z-10 flex flex-1 items-center justify-center">
             <div className="relative h-[1.4em] w-full max-w-[36ch] text-center">
               <AnimatePresence mode="wait">
                 <motion.p
                   key={ready ? "ready" : msg}
-                  initial={{ opacity: 0, y: 14 }}
+                  initial={{ opacity: 0, y: calm.current ? 0 : 14 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -14 }}
-                  transition={{ duration: 0.5, ease: EASE }}
+                  exit={{ opacity: 0, y: calm.current ? 0 : -14 }}
+                  transition={{ duration: calm.current ? 0.25 : 0.5, ease: EASE }}
                   className="text-body leading-body tracking-body m-0 text-ink"
                 >
                   {ready
@@ -181,7 +247,7 @@ export default function Intro({
           </div>
 
           {/* Bottom rail: progress line + counter. */}
-          <div className="flex flex-col gap-[15px]">
+          <div className="relative z-10 flex flex-col gap-[15px]">
             <div className="relative h-px w-full bg-ash">
               <motion.div
                 className="absolute inset-y-0 left-0 bg-ink"

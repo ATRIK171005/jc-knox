@@ -28,23 +28,24 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative z-10 flex min-h-[100svh] items-center pb-[200px] md:pb-[250px] pt-[120px]"
+      className="relative z-10 flex min-h-[70svh] items-center pb-[100px] md:pb-[120px] pt-[100px]"
     >
       {/* Concentric ornaments live in <SphereLayer> with the orb, matching
           the reference site where the rings belong to .orb-w, not the hero. */}
 
       <motion.div style={{ y: textY }} className="shell relative z-10">
-        <h1 className="display text-ink flex flex-col w-full gap-6 md:gap-10 lg:gap-16">
-          <div className="self-start pl-4 md:pl-16 lg:pl-32">
+        
+        <h1 className="display text-ink flex flex-col items-start w-full gap-0 md:gap-2 lg:gap-4 pl-4 md:pl-16 lg:pl-32">
+          <div>
             <SplitText lines={[hero.lines[0]]} delay={3.4} trigger="load" />
           </div>
-          <div className="self-start pl-[15%] md:pl-[30%] lg:pl-[40%] mt-[-10px] md:mt-[-20px]">
+          <div>
             <SplitText lines={[hero.lines[1]]} delay={3.55} trigger="load" />
           </div>
-          <div className="self-start pl-8 md:pl-[20%] lg:pl-[35%]">
+          <div>
             <SplitText lines={[hero.lines[2]]} delay={3.7} trigger="load" />
           </div>
-          <div className="self-end pr-8 md:pr-12 lg:pr-24">
+          <div>
             <AnnotatedText variant="wavy" delay={4.2} color="text-cyan-500">
               <SplitText lines={[hero.lines[3]]} delay={3.85} trigger="load" />
             </AnnotatedText>
@@ -54,7 +55,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE, delay: 4.3 }}
-          className="mt-[46px] flex flex-wrap items-center gap-x-[32px] gap-y-[15px]"
+          className="mt-[100px] md:mt-[120px] flex flex-wrap items-center gap-x-[32px] gap-y-[15px] pl-4 md:pl-16 lg:pl-32"
         >
           <a href={hero.cta.href} className="pill">
             <span>{hero.cta.label}</span>
@@ -65,6 +66,8 @@ export default function Hero() {
           </a>
         </motion.div>
       </motion.div>
+
+
 
       {/* Scroll cue — the source site's 'pulse' rule: a hairline that scales
           from nothing to full height and back, forever. */}
