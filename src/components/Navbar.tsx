@@ -30,20 +30,20 @@ export default function Navbar() {
       transition={{ duration: 0.9, ease: EASE }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-ash /85 py-[10px] backdrop-blur-xl"
-          : "border-b border-transparent py-[20px]"
+          ? "border-b border-ash/85 py-[4px] backdrop-blur-xl"
+          : "border-b border-transparent py-[8px]"
       }`}
     >
       <div className="shell flex items-center justify-between">
-        <a href="#top" className="flex items-center relative w-12 h-12 md:w-16 md:h-16">
-          <img 
-            src="/logos/logo-dark-ink-v2.png" 
-            alt="Brand Logo" 
+        <a href="#top" className="flex items-center relative w-10 h-10 md:w-12 md:h-12">
+          <img
+            src="/logos/logo-dark-ink-v2.png"
+            alt="Brand Logo"
             className="w-full h-full object-contain dark:hidden"
           />
-          <img 
-            src="/logos/logo-beige-v2.png" 
-            alt="Brand Logo" 
+          <img
+            src="/logos/logo-beige-v2.png"
+            alt="Brand Logo"
             className="hidden w-full h-full object-contain dark:block"
           />
         </a>
@@ -55,13 +55,6 @@ export default function Navbar() {
             </a>
           ))}
         </nav>
-
-        <div className="hidden md:flex items-center gap-6">
-          <a href="#contact" className="pill">
-            <span>Let&apos;s talk</span>
-            <span className="text-[1.15em] leading-none">&rarr;</span>
-          </a>
-        </div>
 
         <div className="flex md:hidden items-center gap-4">
           <button

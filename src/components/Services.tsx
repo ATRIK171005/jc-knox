@@ -7,7 +7,7 @@ import { Hairline, Rise, SectionLabel } from "./ui";
  */
 export default function Services() {
   return (
-    <section id="services" className="relative z-10 py-[119px]">
+    <section id="services" className="relative z-10 py-[60px]">
       <div className="shell">
         <SectionLabel>What we do</SectionLabel>
 

@@ -200,16 +200,6 @@ export default function Intro({
           {/* Top rail: wordmark + state */}
           <div className="relative z-10 flex items-start justify-between">
             <span className="label !text-[13px] font-bold !tracking-[0.06em] text-ink flex items-center gap-3">
-              <img 
-                src="/logos/logo-dark-ink-v2.png" 
-                alt="Brand Logo" 
-                className="w-6 h-6 object-contain dark:hidden"
-              />
-              <img 
-                src="/logos/logo-beige-v2.png" 
-                alt="Brand Logo" 
-                className="hidden w-6 h-6 object-contain dark:block"
-              />
               {site.name}
             </span>
             <span className="label text-ink opacity-60 flex items-center gap-2">

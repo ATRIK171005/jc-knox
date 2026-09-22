@@ -6,7 +6,7 @@ import { GhostLink, Rise } from "./ui";
  */
 export default function About() {
   return (
-    <section id="studio" className="relative z-10 py-[119px]">
+    <section id="studio" className="relative z-10 py-[60px]">
       <div className="shell">
         <div className="grid grid-cols-1 gap-[46px] md:grid-cols-12 md:gap-[19px]">
           <div className="flex flex-col gap-[19px] md:col-span-5 lg:col-span-4">

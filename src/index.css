@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
 @theme {
   /* Colors */
   --color-parchment: #e5e4e0;
@@ -343,3 +344,4 @@ html {
     transition-duration: 0.001ms !important;
   }
 }
+

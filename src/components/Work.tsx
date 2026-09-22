@@ -8,7 +8,7 @@ import { Hairline, Rise, SectionLabel, SplitText } from "./ui";
  */
 export default function Work() {
   return (
-    <section id="work" className="relative z-10 py-[119px]">
+    <section id="work" className="relative z-10 py-[60px]">
       <div className="shell">
         <SectionLabel>Selected work</SectionLabel>
 

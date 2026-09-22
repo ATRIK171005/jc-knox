@@ -4,12 +4,10 @@ import { motion } from "framer-motion";
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== "undefined") {
-      return (
-        localStorage.getItem("theme") === "dark" ||
-        (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
-      );
+      // Default to dark mode unless the user explicitly saved 'light'
+      return localStorage.getItem("theme") !== "light";
     }
-    return false;
+    return true;
   });
 
   useEffect(() => {
@@ -26,7 +24,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setIsDark(!isDark)}
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center text-ink hover:scale-110 transition-transform active:scale-95 md:bottom-8 md:right-8"
+      className="fixed bottom-6 right-6 z-50 flex items-center justify-center text-ink opacity-70 hover:opacity-100 hover:scale-110 transition-all active:scale-95 md:bottom-8 md:right-8"
       aria-label="Toggle dark mode"
     >
       <ThemeToggleIcon isDark={isDark} />

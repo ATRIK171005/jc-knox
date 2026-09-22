@@ -11,11 +11,7 @@ export const site = {
   email: "jcknox.in@gmail.com",
   phone: "+91 81162 23001",
   contactName: "Aastik Kumar Saha",
-  socials: [
-    { label: "Instagram", href: "https://instagram.com/" },
-    { label: "LinkedIn", href: "https://linkedin.com/" },
-    { label: "GitHub", href: "https://github.com/mehereswar24" },
-  ],
+  socials: [],
 };
 
 export const nav = [
@@ -141,15 +137,12 @@ export const contact = {
   body:
     "Tell us about your business and when the site needs to be live. You'll get a reply from the person who would build it — usually within one business day.",
   budgets: [
-    "Under ₹1L",
-    "₹1L – ₹3L",
-    "₹3L – ₹8L",
-    "₹8L+",
+    "Under ₹15k",
+    "₹15k – ₹35k",
+    "₹35k – ₹70k",
+    "₹70k+",
     "Not sure yet",
   ],
 };
 
-export const footerLinks = [
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms", href: "#" },
-];
+export const footerLinks = [];

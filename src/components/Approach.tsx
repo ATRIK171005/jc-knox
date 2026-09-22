@@ -3,7 +3,7 @@ import { Rise, SectionLabel } from "./ui";
 
 export default function Approach() {
   return (
-    <section id="approach" className="relative z-10 py-[119px]">
+    <section id="approach" className="relative z-10 py-[60px]">
       <div className="shell">
         <div className="flex flex-col gap-[15px]">
           <SectionLabel>Our Approach</SectionLabel>

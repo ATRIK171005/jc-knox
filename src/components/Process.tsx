@@ -8,7 +8,7 @@ import { Rise, SectionLabel } from "./ui";
  */
 export default function Process() {
   return (
-    <section id="process" className="relative z-10  py-[119px]">
+    <section id="process" className="relative z-10  py-[60px]">
       <div className="shell">
         <SectionLabel>How it works</SectionLabel>
 

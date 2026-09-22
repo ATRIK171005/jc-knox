@@ -69,16 +69,7 @@ export default function Hero() {
 
 
 
-      {/* Scroll cue — the source site's 'pulse' rule: a hairline that scales
-          from nothing to full height and back, forever. */}
-      <motion.div
-        style={{ opacity: fade }}
-        animate={{ opacity: hideScroll ? 0 : 1 }}
-        className="label absolute bottom-[30px] right-[30px] z-10 hidden flex-col items-center gap-[8px] md:flex"
-      >
-        <span>Scroll</span>
-        <PulseLine className="h-[46px]" />
-      </motion.div>
+
     </section>
   );
 }

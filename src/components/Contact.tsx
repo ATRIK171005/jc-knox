@@ -55,7 +55,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="relative z-10 py-[119px]">
+    <section id="contact" className="relative z-10 py-[60px]">
       <div className="shell">
         <SectionLabel>{contact.label}</SectionLabel>
 
