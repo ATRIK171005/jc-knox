@@ -16,12 +16,18 @@ type Status = "idle" | "sending" | "sent" | "error";
 
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
-  const [budget, setBudget] = useState(contact.budgets[1]);
+  const [budget, setBudget] = useState("");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
+
+    // Inject Web3Forms access key if configured
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+    if (accessKey) {
+      data.access_key = accessKey as string;
+    }
 
     if (!ENDPOINT) {
       // No backend configured: hand off to the user's mail client.
@@ -127,7 +133,7 @@ export default function Contact() {
                             <label
                               key={b}
                               className={`pill ${
-                                budget === b ? "bg-ink text-parchment" : ""
+                                budget === b ? "!bg-ink !text-parchment" : ""
                               }`}
                             >
                               <input
@@ -137,6 +143,7 @@ export default function Contact() {
                                 checked={budget === b}
                                 onChange={() => setBudget(b)}
                                 className="sr-only"
+                                required
                               />
                               <span>{b}</span>
                             </label>
