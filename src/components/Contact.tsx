@@ -5,12 +5,10 @@ import { EASE } from "../lib/motion";
 import { Rise, ScrollText, SectionLabel } from "./ui";
 
 /**
- * Endpoint for the enquiry form. Set VITE_CONTACT_ENDPOINT in .env to a
- * Formspree / Basin / your-own-API URL that accepts JSON POSTs.
- * If it's unset the form degrades to a prefilled mail draft, so the page
- * is never a dead end — nothing is silently swallowed.
+ * Endpoint for the enquiry form.
  */
-const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined;
+const ENDPOINT = "https://api.web3forms.com/submit";
+const WEB3FORMS_KEY = "2311386c-5fad-4f3c-a01b-06b00972e04f";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -23,11 +21,8 @@ export default function Contact() {
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
 
-    // Inject Web3Forms access key if configured
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-    if (accessKey) {
-      data.access_key = accessKey as string;
-    }
+    // Inject Web3Forms access key
+    data.access_key = WEB3FORMS_KEY;
 
     if (!ENDPOINT) {
       // No backend configured: hand off to the user's mail client.
