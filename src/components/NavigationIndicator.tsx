@@ -1,30 +1,56 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 export interface NavigationIndicatorProps {
-  items?: string[];
-  activeIndex?: number | null;
-  onClick?: (index: number) => void;
+  sections: { id: string; label: string }[];
 }
 
-const NavigationIndicator = (props: NavigationIndicatorProps) => {
-  const { items = [], activeIndex = null, onClick } = props;
+const NavigationIndicator = ({ sections }: NavigationIndicatorProps) => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [hoverIndex, setHoverIndex] = useState<null | number>(null);
 
-  const getScale = (val: number) =>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = sections.findIndex((sec) => sec.id === entry.target.id);
+            if (index !== -1) {
+              setActiveIndex(index);
+            }
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    sections.forEach((sec) => {
+      const el = document.getElementById(sec.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [sections]);
+
+  const getScale = useCallback((val: number) =>
     hoverIndex === null
       ? 0.4
-      : Math.max(1 - 0.2 * Math.abs(val - hoverIndex), 0.4);
+      : Math.max(1 - 0.2 * Math.abs(val - hoverIndex), 0.4)
+  , [hoverIndex]);
 
-  const handleClick = (index: number) => {
-    onClick?.(index);
-  };
+  const handleClick = useCallback((index: number) => {
+    const id = sections[index].id;
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [sections]);
 
   return (
     <div className="flex flex-col gap-3">
-      {items.map((item, index) => (
+      {sections.map((sec, index) => (
         <div
-          key={index}
+          key={sec.id}
           className="relative cursor-pointer py-1"
           onMouseEnter={() => setHoverIndex(index)}
           onMouseLeave={() => setHoverIndex(null)}
@@ -50,7 +76,7 @@ const NavigationIndicator = (props: NavigationIndicatorProps) => {
                 color: activeIndex === index ? '#ffb224' : '#a0a0a0',
               }}
             >
-              {item}
+              {sec.label}
             </motion.span>
           ) : null}
         </div>
@@ -59,4 +85,4 @@ const NavigationIndicator = (props: NavigationIndicatorProps) => {
   );
 };
 
-export default NavigationIndicator;
+export default React.memo(NavigationIndicator);

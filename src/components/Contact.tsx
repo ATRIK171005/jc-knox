@@ -29,6 +29,8 @@ export default function Contact() {
       const body = [
         `Name: ${data.name}`,
         `Company: ${data.company}`,
+        `Email: ${data.email || "Not provided"}`,
+        `Phone: ${data.phone}`,
         `Budget: ${data.budget}`,
         "",
         String(data.message ?? ""),
@@ -119,7 +121,10 @@ export default function Contact() {
                         <Field id="name" label="Your name" required />
                         <Field id="company" label="Company" />
                       </div>
-                      <Field id="email" label="Email" type="email" required />
+                      <div className="grid grid-cols-1 gap-[19px] sm:grid-cols-2">
+                        <Field id="email" label="Email (Optional)" type="email" />
+                        <Field id="phone" label="Contact number" type="tel" required />
+                      </div>
 
                       <fieldset className="m-0 border-0 p-0">
                         <legend className="label mb-[8px] p-0 opacity-70">Budget</legend>

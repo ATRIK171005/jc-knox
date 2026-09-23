@@ -37,7 +37,7 @@ export default function Hero() {
             <SplitText lines={[hero.lines[2]]} delay={3.7} trigger="load" />
           </div>
           <div>
-            <AnnotatedText variant="wavy" delay={4.2} color="text-cyan-500">
+            <AnnotatedText variant="wavy" delay={4.5} color="text-cyan-500">
               <SplitText lines={[hero.lines[3]]} delay={3.85} trigger="load" />
             </AnnotatedText>
           </div>

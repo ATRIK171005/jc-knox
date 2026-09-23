@@ -447,8 +447,7 @@ export function AnnotatedText({
 
   useEffect(() => {
     const element = ref.current;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!element || !animate || reducedMotion.matches) return;
+    if (!element || !animate) return;
 
     const drawings = element.querySelectorAll("[data-annotation-drawing]");
     const animations = Array.from(drawings, (drawing, index) => {
@@ -500,16 +499,9 @@ export function AnnotatedText({
     );
     observer.observe(element);
 
-    const finish = () => {
-      if (!reducedMotion.matches) return;
-      observer.disconnect();
-      animations.forEach((animation) => animation.cancel());
-    };
-    reducedMotion.addEventListener("change", finish);
     return () => {
       observer.disconnect();
       animations.forEach((animation) => animation.cancel());
-      reducedMotion.removeEventListener("change", finish);
     };
   }, [animate, delay, duration, variant]);
 
